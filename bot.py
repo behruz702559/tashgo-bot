@@ -32,8 +32,11 @@ def main_keyboard():
 
 @dp.message(Command("start"))
 async def start_handler(message: Message):
+    user = message.from_user
+    display_name = user.username or user.first_name or "Do‘stimiz"
+
     text = (
-        "🔥 <b>TASHGO</b> ga xush kelibsiz!\n\n"
+        f"🔥 <b>{display_name}</b>, TASHGO'ga xush kelibsiz!\n\n"
         "🎮 O‘yinlar va Telegram xizmatlarini qulay xarid qiling.\n\n"
         "🛍️ Do‘konni ochish uchun quyidagi tugmani bosing:"
     )
@@ -121,3 +124,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+
