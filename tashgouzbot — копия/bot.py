@@ -10,7 +10,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 # TASHGO BOT
 # =========================
 
-TOKEN = os.getenv("8814995862:AAEfUZ_Yse-mrxxzYc61K3__jo0f3wflAFI")
+TOKEN = os.getenv("8814995862:AAEMe3lMVD09S6f8MaZErGFwgM2o2lsaXJU")
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
