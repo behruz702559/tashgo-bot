@@ -36,7 +36,7 @@ async def start_handler(message: Message):
     display_name = user.username or user.first_name or "Do‘stimiz"
 
     text = (
-        f"🔥 ⭐ {display_name} ⭐, TASHGO'ga xush kelibsiz!\n\n"
+        f"🔥TASHGO'ga xush kelibsiz!\n\n"
         "🎮 O‘yinlar va Telegram xizmatlarini qulay xarid qiling.\n\n"
         "🛍️ Do‘konni ochish uchun quyidagi tugmani bosing:"
     )
