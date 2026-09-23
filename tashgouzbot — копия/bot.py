@@ -1,4 +1,6 @@
-import asyncio
+import asyncio 
+
+from aiohttp import web
 
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
@@ -103,11 +105,27 @@ async def start_shop(call: CallbackQuery):
 # BOTNI ISHGA TUSHIRISH
 # =========================
 
+async def health(request):
+    return web.Response(text="TASHGO BOT ISHLAYAPTI!")
+
+
 async def main():
+    app = web.Application()
+    app.router.add_get("/", health)
+
+    runner = web.AppRunner(app)
+    await runner.setup()
+
+    port = int(os.getenv("PORT", "10000"))
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    await site.start()
 
     print("🔥 TASHGO BOT ISHLAYAPTI...")
 
-    await dp.start_polling(bot)
+    try:
+        await dp.start_polling(bot)
+    finally:
+        await runner.cleanup()
 
 
 if __name__ == "__main__":
