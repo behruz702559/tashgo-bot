@@ -35,11 +35,31 @@ async def start_handler(message: Message):
     user = message.from_user
     display_name = user.username or user.first_name or "Do‘stimiz"
 
-    text = (
-        f"🔥TASHGO'ga xush kelibsiz!\n\n"
-        "🎮 O‘yinlar va Telegram xizmatlarini qulay xarid qiling.\n\n"
-        "🛍️ Do‘konni ochish uchun quyidagi tugmani bosing:"
+    # Matn
+    caption = (
+        f"👋 Xush kelibsiz, {name}!\n\n"
+        "🔥 TASHGO'ga xush kelibsiz!\n\n"
+        "Bizning xizmatlarimizdan foydalaning, "
+        "vaqtingizni va pulingizni tejang.\n\n"
+
+        "🎮 PUBG Mobile\n"
+        "🔥 Free Fire\n"
+        "⚔️ Mobile Legends\n"
+        "🎯 Standoff 2\n"
+        "⭐ Telegram Stars\n"
+        "💎 Telegram Premium\n"
+        "🎁 Telegram Gifts\n"
+        "🎮 Steam\n"
+        "💬 Discord Nitro\n\n"
+
+        "⚡ Tezkor xizmat\n"
+        "💰 Qulay narxlar\n"
+        "🛡️ Ishonchli xizmat\n\n"
+
+        "🙏 TASHGO xizmatlaridan "
+        "foydalanganingiz uchun rahmat!"
     )
+
 
     if os.path.exists(WELCOME_IMAGE):
         await message.answer_photo(
