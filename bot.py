@@ -1,109 +1,99 @@
-import asyncio 
+import asyncio
+import os
 
 from aiohttp import web
-
 from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
-from aiogram.types import Message, CallbackQuery, FSInputFile, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.types import Message, FSInputFile, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 
+TOKEN = os.getenv("BOT_TOKEN")
+WEB_APP_URL = "https://behruz702559.github.io/tashgo-mini-app/"
+WELCOME_IMAGE = "welcome.jpg"
 
-# =========================
-# TASHGO BOT
-# =========================
-
-TOKEN = os.getenv("8814995862:AAEMe3lMVD09S6f8MaZErGFwgM2o2lsaXJU")
+if not TOKEN:
+    raise RuntimeError("BOT_TOKEN environment variable topilmadi!")
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 
-# =========================
-# /start
-# =========================
+def main_keyboard():
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text="🛍️ Xaridni boshlash 🛍️",
+                    web_app=WebAppInfo(url=WEB_APP_URL),
+                )
+            ]
+        ]
+    )
+
 
 @dp.message(Command("start"))
-async def start(message: Message):
-
-    # Tugma
-    keyboard = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [
-            InlineKeyboardButton(
-                text="🛍️ Xaridni boshlash 🛍️",
-                web_app=WebAppInfo(
-                    url="https://behruz702559.github.io/tashgo-mini-app/"
-                )
-            )
-        ]
-    ]
-)
-    # Foydalanuvchi ismi
-    name = message.from_user.first_name
-
-    # Matn
-    caption = (
-        f"👋 Xush kelibsiz, {name}!\n\n"
-        "🔥 TASHGO'ga xush kelibsiz!\n\n"
-        "Bizning xizmatlarimizdan foydalaning, "
-        "vaqtingizni va pulingizni tejang.\n\n"
-
-        "🎮 PUBG Mobile\n"
-        "🔥 Free Fire\n"
-        "⚔️ Mobile Legends\n"
-        "🎯 Standoff 2\n"
-        "⭐ Telegram Stars\n"
-        "💎 Telegram Premium\n"
-        "🎁 Telegram Gifts\n"
-        "🎮 Steam\n"
-        "💬 Discord Nitro\n\n"
-
-        "⚡ Tezkor xizmat\n"
-        "💰 Qulay narxlar\n"
-        "🛡️ Ishonchli xizmat\n\n"
-
-        "🙏 TASHGO xizmatlaridan "
-        "foydalanganingiz uchun rahmat!"
+async def start_handler(message: Message):
+    text = (
+        "🔥 <b>TASHGO</b> ga xush kelibsiz!\n\n"
+        "🎮 O‘yinlar va Telegram xizmatlarini qulay xarid qiling.\n\n"
+        "🛍️ Do‘konni ochish uchun quyidagi tugmani bosing:"
     )
 
-    # Rasm
-    photo = FSInputFile("welcome.jpg")
+    if os.path.exists(WELCOME_IMAGE):
+        await message.answer_photo(
+            photo=FSInputFile(WELCOME_IMAGE),
+            caption=text,
+            reply_markup=main_keyboard(),
+        )
+    else:
+        await message.answer(text, reply_markup=main_keyboard())
 
-    # Rasm + matn + tugma
-    await message.answer_photo(
-        photo=photo,
-        caption=caption,
-        reply_markup=keyboard
+
+@dp.message(Command("shop"))
+async def shop_handler(message: Message):
+    await message.answer(
+        "🛒 <b>TASHGO Do‘kon</b>\n\nDo‘konni ochish uchun tugmani bosing:",
+        reply_markup=main_keyboard(),
     )
 
 
-# =========================
-# 🛍️ XARIDNI BOSHLASH
-# =========================
+@dp.message(Command("balance"))
+async def balance_handler(message: Message):
+    await message.answer("💰 <b>Balansim</b>\n\nBalans tizimi sozlanmoqda.")
 
-@dp.callback_query(lambda call: call.data == "start_shop")
-async def start_shop(call: CallbackQuery):
 
-    await call.answer()
+@dp.message(Command("deposit"))
+async def deposit_handler(message: Message):
+    await message.answer("💳 <b>Balansni to‘ldirish</b>\n\nTo‘lov tizimi sozlanmoqda.")
 
-    await call.message.answer(
-        "🛒 TASHGO DO‘KONIGA XUSH KELIBSIZ!\n\n"
-        "🎮 PUBG Mobile\n"
-        "🔥 Free Fire\n"
-        "⚔️ Mobile Legends\n"
-        "🎯 Standoff 2\n"
-        "⭐ Telegram Stars\n"
-        "💎 Telegram Premium\n"
-        "🎁 Telegram Gifts\n"
-        "🎮 Steam\n"
-        "💬 Discord Nitro\n\n"
-        "👇 Kerakli mahsulotni tanlang."
+
+@dp.message(Command("orders"))
+async def orders_handler(message: Message):
+    await message.answer("📦 <b>Buyurtmalarim</b>\n\nHozircha buyurtmalar yo‘q.")
+
+
+@dp.message(Command("history"))
+async def history_handler(message: Message):
+    await message.answer("📜 <b>Xaridlar tarixi</b>\n\nHozircha xaridlar tarixi bo‘sh.")
+
+
+@dp.message(Command("support"))
+async def support_handler(message: Message):
+    await message.answer("💬 <b>Qo‘llab-quvvatlash</b>\n\nAdministrator bilan bog‘laning.")
+
+
+@dp.message(Command("help"))
+async def help_handler(message: Message):
+    await message.answer(
+        "❓ <b>Yordam</b>\n\n"
+        "/start — 🚀 TASHGO\n"
+        "/shop — 🛒 Do‘kon\n"
+        "/balance — 💰 Balansim\n"
+        "/deposit — 💳 Balansni to‘ldirish\n"
+        "/orders — 📦 Buyurtmalarim\n"
+        "/history — 📜 Xaridlar tarixi\n"
+        "/support — 💬 Qo‘llab-quvvatlash"
     )
 
-
-# =========================
-# BOTNI ISHGA TUSHIRISH
-# =========================
 
 async def health(request):
     return web.Response(text="TASHGO BOT ISHLAYAPTI!")
@@ -125,6 +115,7 @@ async def main():
     try:
         await dp.start_polling(bot)
     finally:
+        await bot.session.close()
         await runner.cleanup()
 
 
