@@ -36,7 +36,7 @@ async def start_handler(message: Message):
     display_name = user.username or user.first_name or "Do‘stimiz"
 
     text = (
-        f"🔥 <b>{display_name}</b>, TASHGO'ga xush kelibsiz!\n\n"
+        f"🔥 ⭐ {display_name} ⭐, TASHGO'ga xush kelibsiz!\n\n"
         "🎮 O‘yinlar va Telegram xizmatlarini qulay xarid qiling.\n\n"
         "🛍️ Do‘konni ochish uchun quyidagi tugmani bosing:"
     )
@@ -54,40 +54,40 @@ async def start_handler(message: Message):
 @dp.message(Command("shop"))
 async def shop_handler(message: Message):
     await message.answer(
-        "🛒 <b>TASHGO Do‘kon</b>\n\nDo‘konni ochish uchun tugmani bosing:",
+        "🛒 TASHGO Do‘kon\n\nDo‘konni ochish uchun tugmani bosing:",
         reply_markup=main_keyboard(),
     )
 
 
 @dp.message(Command("balance"))
 async def balance_handler(message: Message):
-    await message.answer("💰 <b>Balansim</b>\n\nBalans tizimi sozlanmoqda.")
+    await message.answer("💰 Balansim\n\nBalans tizimi sozlanmoqda.")
 
 
 @dp.message(Command("deposit"))
 async def deposit_handler(message: Message):
-    await message.answer("💳 <b>Balansni to‘ldirish</b>\n\nTo‘lov tizimi sozlanmoqda.")
+    await message.answer("💳 Balansni to‘ldirish\n\nTo‘lov tizimi sozlanmoqda.")
 
 
 @dp.message(Command("orders"))
 async def orders_handler(message: Message):
-    await message.answer("📦 <b>Buyurtmalarim</b>\n\nHozircha buyurtmalar yo‘q.")
+    await message.answer("📦 Buyurtmalarim\n\nHozircha buyurtmalar yo‘q.")
 
 
 @dp.message(Command("history"))
 async def history_handler(message: Message):
-    await message.answer("📜 <b>Xaridlar tarixi</b>\n\nHozircha xaridlar tarixi bo‘sh.")
+    await message.answer("📜 Xaridlar tarixi\n\nHozircha xaridlar tarixi bo‘sh.")
 
 
 @dp.message(Command("support"))
 async def support_handler(message: Message):
-    await message.answer("💬 <b>Qo‘llab-quvvatlash</b>\n\nAdministrator bilan bog‘laning.")
+    await message.answer("💬 Qo‘llab-quvvatlash\n\nAdministrator bilan bog‘laning.")
 
 
 @dp.message(Command("help"))
 async def help_handler(message: Message):
     await message.answer(
-        "❓ <b>Yordam</b>\n\n"
+        "❓ Yordam\n\n"
         "/start — 🚀 TASHGO\n"
         "/shop — 🛒 Do‘kon\n"
         "/balance — 💰 Balansim\n"
@@ -124,4 +124,3 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
-
